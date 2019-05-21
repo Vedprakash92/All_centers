@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Firebase</title>
+</head>
+<body>
+		<button onclick = "googleSignin()">Google Signin</button>
+		<button onclick = "googleSignout()">Google Signout</button>	
+
+
+<script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAfmi4DhakDnjB7bm6H4YagNTkeQGAj01s",
+    authDomain: "weblogin-205811.firebaseapp.com",
+    databaseURL: "https://weblogin-205811.firebaseio.com",
+    projectId: "weblogin-205811",
+    storageBucket: "",
+    messagingSenderId: "338618693807"
+  };
+  firebase.initializeApp(config);
+var provider = new firebase.auth.GoogleAuthProvider();
+
+function googleSignin() {
+   firebase.auth()
+   
+   .signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+		
+      console.log(token)
+      console.log(user)
+   }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+		
+      console.log(error.code)
+      console.log(error.message)
+   });
+}
+
+function googleSignout() {
+   firebase.auth().signOut()
+	
+   .then(function() {
+      console.log('Signout Succesfull')
+   }, function(error) {
+      console.log('Signout Failed')  
+   });
+}
+	</script>
+</body>
+</html>
